@@ -5,6 +5,7 @@ import 'package:flutter_weather_app/bloc/weather_bloc.dart';
 import 'package:flutter_weather_app/core/styles/font_styles.dart';
 import 'package:flutter_weather_app/core/utilities/image_constants.dart';
 import 'package:flutter_weather_app/core/utilities/neumorphic_widget.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,20 +43,29 @@ class _HomeState extends State<Home> {
                         Text('📍 ${state.weather.areaName?.toUpperCase()}',
                             style: FWFonts.regularFonts16),
                         const SizedBox(height: 8),
-                        Text('GOOD MORNING', style: FWFonts.mediumFonts20),
+                        Text(state.greeting.toUpperCase(),
+                            style: FWFonts.mediumFonts20),
                         const SizedBox(height: 30),
                         Center(
                             child: getWeatherIcon(
                                 state.weather.weatherConditionCode ?? 0)),
                         const SizedBox(height: 30),
-                        Center(child: Text('32°C', style: FWFonts.boldFonts40)),
+                        Center(
+                            child: Text(
+                                '${state.weather.temperature?.celsius?.round()}°C',
+                                style: FWFonts.boldFonts40)),
                         const SizedBox(height: 8),
                         Center(
-                            child:
-                                Text('SUNNY', style: FWFonts.semiBoldFonts22)),
+                            child: Text(
+                                '${state.weather.weatherMain?.toUpperCase()}',
+                                style: FWFonts.semiBoldFonts22)),
                         const SizedBox(height: 5),
                         Center(
-                            child: Text('SUNDAY 14• 09:41 AM',
+                            child: Text(
+                                DateFormat('EEEE dd •')
+                                    .add_jm()
+                                    .format(state.weather.date!),
+                                //'SUNDAY 14• 09:41 AM',
                                 style: FWFonts.regularFonts12)),
                         const SizedBox(height: 30),
                         Row(
@@ -74,7 +84,10 @@ class _HomeState extends State<Home> {
                                     Text('SUNRISE',
                                         style: FWFonts.regularFonts16),
                                     const SizedBox(height: 3),
-                                    Text('04:30 AM',
+                                    Text(
+                                        DateFormat()
+                                            .add_jm()
+                                            .format(state.weather.sunrise!),
                                         style: FWFonts.regularFonts12),
                                   ],
                                 )
@@ -93,7 +106,10 @@ class _HomeState extends State<Home> {
                                     Text('SUNSET',
                                         style: FWFonts.regularFonts16),
                                     const SizedBox(height: 3),
-                                    Text('05:30 PM',
+                                    Text(
+                                        DateFormat()
+                                            .add_jm()
+                                            .format(state.weather.sunset!),
                                         style: FWFonts.regularFonts12),
                                   ],
                                 )
@@ -122,7 +138,9 @@ class _HomeState extends State<Home> {
                                   Text('TEMP MAX',
                                       style: FWFonts.regularFonts16),
                                   const SizedBox(height: 3),
-                                  Text("16°C", style: FWFonts.regularFonts12),
+                                  Text(
+                                      "${state.weather.tempMax?.celsius?.round()}°C",
+                                      style: FWFonts.regularFonts12),
                                 ],
                               )
                             ]),
@@ -138,7 +156,9 @@ class _HomeState extends State<Home> {
                                   Text('TEMP MIN',
                                       style: FWFonts.regularFonts16),
                                   const SizedBox(height: 3),
-                                  Text("8°C", style: FWFonts.regularFonts12),
+                                  Text(
+                                      "${state.weather.tempMin?.celsius?.round()}°C",
+                                      style: FWFonts.regularFonts12),
                                 ],
                               )
                             ])

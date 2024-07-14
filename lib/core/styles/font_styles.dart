@@ -34,8 +34,8 @@ class FWFonts{
 
   static final TextStyle semiBoldFonts22 = GoogleFonts.raleway(
       color: Colors.black,
-      fontSize: 22,
-      fontWeight: FontWeight.w600
+      fontSize: 20,
+      fontWeight: FontWeight.w700
   );
 
   static final TextStyle boldFonts40 = GoogleFonts.raleway(
