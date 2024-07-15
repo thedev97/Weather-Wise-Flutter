@@ -14,28 +14,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: FutureBuilder(
-          future: _determinePosition(),
-          builder: (context, snap) {
-            if (snap.hasData) {
-              return BlocProvider(
-                  create: (context) => WeatherBloc()..add(FetchWeather(snap.data as Position)),
-                  child: const Home());
-            } else {
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Color(0xFFf1ded0),
-                    strokeWidth: 5,
-                    color: Colors.amberAccent,
-                  ),
-                ),
-              );
-            }
-          },
-        ));
+      debugShowCheckedModeBanner: false,
+      home: BlocProvider(
+        create: (context) => WeatherBloc(),
+        child: const LocationWrapper(),
+      ),
+    );
   }
+}
+
+class LocationWrapper extends StatelessWidget {
+  const LocationWrapper({super.key});
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -72,5 +61,34 @@ class MyApp extends StatelessWidget {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Position>(
+      future: _determinePosition(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          context.read<WeatherBloc>().add(FetchWeather(snapshot.data!));
+          return const Home();
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Text('Error: ${snapshot.error}'),
+            ),
+          );
+        } else {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Color(0xFFf1ded0),
+                strokeWidth: 5,
+                color: Colors.amberAccent,
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 }

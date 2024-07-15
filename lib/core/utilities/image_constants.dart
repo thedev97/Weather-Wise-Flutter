@@ -3,7 +3,7 @@ class FWImage {
 
   static String sunnyImg = '$imagePath/sunny.png';
   static String rainyImg = '$imagePath/rainy.png';
-  static String heavyRainyImg = '$imagePath/heavy_rainy.png';
+  static String heavyRainyImg = '$imagePath/heavy_rain.png';
   static String windyImg = '$imagePath/windy.png';
   static String thunderStormImg = '$imagePath/thunderstorm.png';
   static String snowImg = '$imagePath/snow.png';

@@ -25,14 +25,14 @@ class NeuContainer extends StatelessWidget {
         boxShadow: const [
           BoxShadow(
             color: Colors.white,
-            offset: Offset(-5, -5),
-            blurRadius: 5,
+            offset: Offset(-1, -1),
+            blurRadius: 1,
             spreadRadius: 1,
           ),
           BoxShadow(
             color: Colors.black12,
-            offset: Offset(5, 5),
-            blurRadius: 5,
+            offset: Offset(1, 1),
+            blurRadius: 1,
             spreadRadius: 1,
           ),
         ],
